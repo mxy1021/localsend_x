@@ -192,6 +192,7 @@ Slang, source files in `app/assets/i18n/` (`<locale>.json` plus `_missing_transl
 
 ## 6. 变更与提交
 
+- 实现类任务先建 `task/*` 或 `fix/*` 分支（见第 9 节），验证通过后再合并 `main`；不在 `main` 上长期直接开发。
 - 一个任务一个提交，信息格式沿用仓库既有风格（`feat:` / `fix:` / `chore:` 等）。
 - 提交信息末尾附 `Co-Authored-By: Claude Code <noreply@anthropic.com>`。
 - 提交前用 `git status` / `git diff` 核对只包含本任务的文件。
@@ -210,11 +211,30 @@ Slang, source files in `app/assets/i18n/` (`<locale>.json` plus `_missing_transl
 - 未经确认的新需求先记录，不实现。
 - 缺失的关键信息集中提问；不依赖答案的工作继续推进。
 
-## 9. 待确认策略（尚未决定，勿擅自执行）
+## 9. 已确认的工作流决策
 
-- 分支策略：直接提交 `main`，还是任务分支 + 合并？
-- 上游同步：是否添加 `upstream` remote 并定期合并？合并时如何处理本 fork 的改动？
-- 私有化程度：是否改包名 / 应用名 / 图标？是否移除上游的更新检查、遥测、捐赠入口？
-- APK 签名方式：调试签名，还是自有 keystore？
-- 常驻后台所需的新权限（`RECEIVE_BOOT_COMPLETED`、电池优化豁免等）由对应任务单独设计后再定。
-- 工具链可用性：`fvm` 尚未在本机确认可用，验证能力受限（见第 5 节）。
+**分支策略**：`main` + 独立任务分支。实现类任务建 `task/*` 或 `fix/*` 分支，验证完成后合并 `main`；不在 `main` 上长期直接开发。
+
+**上游同步**：仓库源自官方 LocalSend，已配置 `upstream` remote 指向 `https://github.com/localsend/localsend.git`。同步上游时若发生冲突，**不得自动覆盖本地修改**，必须先分析冲突再由人决定。是否长期定期同步上游，待项目定位进一步明确后再定。
+
+**私有化范围**：允许修改应用名、包名、图标。**暂不擅自删除任何现有功能**；更新检查、遥测、捐赠入口等逐项在需求阶段确认。**许可证与第三方版权信息不得删除**。
+
+**签名**：开发阶段用 debug 签名；正式交付版本用项目自有 release keystore。keystore、密码与签名敏感配置一律不入 Git（见第 7 节）。
+
+**常驻后台所需的新权限**（`RECEIVE_BOOT_COMPLETED`、电池优化豁免等）由对应任务单独设计后确定。
+
+## 10. 工具链实测状态
+
+核查日期 **2026-09-23**，方式为检查 PATH（含 `cmd //c where`）、环境变量与常见安装目录，并在 `Program Files`、`D:\APPs`、`D:\Program Files`、`AppData\Local`、`D:\Files\tools` 等根目录做限定深度搜索。
+
+| 工具 | 实测结果 |
+|---|---|
+| `fvm` | **未找到**（PATH 无，常见安装目录无） |
+| `flutter` / `dart` | **未找到** |
+| JDK / `java` | **未找到**（`JAVA_HOME` 未设置） |
+| Android SDK | **未找到**（`ANDROID_HOME`、`ANDROID_SDK_ROOT` 均未设置，无 `sdkmanager`） |
+| `adb` | 有若干**散落副本**（随微信开发者工具、腾讯 Androws、搞机工具箱、刷机工具等第三方软件附带），均不在 PATH，也不是完整 SDK 的组成部分 |
+
+**结论：当前无法执行任何 Flutter 构建、测试或设备验证。** 在任何构建或测试结论成为有效证据之前，需先安装：`fvm` + Flutter（版本见 `.fvmrc`：**3.41.9**）、JDK、Android SDK。
+
+**未验证声明**：以上为限定范围的搜索所得，不排除存在搜索未覆盖的路径下已安装工具的可能。
