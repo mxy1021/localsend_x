@@ -303,3 +303,24 @@ Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blo
 <a href="https://github.com/localsend/localsend/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
 </a>
+
+---
+
+## localsend_x（本 fork 说明）
+
+本仓库是 [LocalSend](https://github.com/localsend/localsend) 的**私有魔改 fork**，仅在 fork 内演进，不向上游提交。
+
+| 项 | 值 |
+|---|---|
+| fork 来源 | localsend/localsend，基线 v1.18.2（commit `230fb692`，2026-09-14） |
+| 本仓库 | https://github.com/mxy1021/localsend_x |
+| 首要交付面 | `app/`（Flutter 客户端） |
+| 交付形式 | 安卓 APK 安装包 |
+| 目标平台 | Android 16（API 36） |
+| 目标用户 / 要解决的问题 | **待确认**（尚未提供） |
+
+构建、架构与代码规范一律沿用上游约定，见 [AGENTS.md](AGENTS.md) 与 [CLAUDE.md](CLAUDE.md) —— 本 fork 未对这两份文档做改动，其中的命令与约束继续有效（注意使用 `fvm flutter` / `fvm dart`）。
+
+上游 `AGENTS.md` 开头"LocalSend 不接受 AI 生成贡献"的条款约束的是向上游提交 PR 的场景；本 fork 已确认仅内部演进，不受该条款限制。
+
+以上内容为 fork 初始化时补充，上游原文未改动。
