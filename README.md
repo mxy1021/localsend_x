@@ -317,9 +317,9 @@ Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blo
 | 首要交付面 | `app/`（Flutter 客户端） |
 | 交付形式 | 安卓 APK 安装包 |
 | 目标平台 | Android 16（API 36） |
-| 目标用户 / 要解决的问题 | **待确认**（尚未提供） |
+| 目标用户 / 要解决的问题 | 见 [docs/requirements.md](docs/requirements.md)（**已确认为需求基线**；本期范围为 Android 端后台保活与开机自启） |
 
-构建、架构与代码规范一律沿用上游约定，见 [AGENTS.md](AGENTS.md) 与 [CLAUDE.md](CLAUDE.md) —— 本 fork 未对这两份文档做改动，其中的命令与约束继续有效（注意使用 `fvm flutter` / `fvm dart`）。
+构建与代码规范沿用上游约定，见 [AGENTS.md](AGENTS.md)（注意使用 `fvm flutter` / `fvm dart`）。本 fork 的**协作规则**在 AGENTS.md 下半部分（§0–§11），本仓库已按该规则与流程演进；[CLAUDE.md](CLAUDE.md) 自上游基线起未改动，仅作 AI 入口导入 AGENTS.md。
 
 上游 `AGENTS.md` 开头"LocalSend 不接受 AI 生成贡献"的条款约束的是向上游提交 PR 的场景；本 fork 已确认仅内部演进，不受该条款限制。
 
